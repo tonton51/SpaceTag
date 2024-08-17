@@ -49,6 +49,19 @@ ExportedObj/
 # add0817
 *.dll
 
+# Ignore Unity Library and Bee folders
+[Ll]ibrary/
+[Bb]ee/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+ 
+# Ignore Burst Cache
+[Ll]ibrary/BurstCache/
+ 
+# Ignore specific PackageCache content
+[Ll]ibrary/PackageCache/
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
