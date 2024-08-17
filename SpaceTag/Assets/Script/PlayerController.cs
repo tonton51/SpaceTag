@@ -5,53 +5,47 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using ExitGames.Client.Photon;
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks,IOnEventCallback
 {
     Rigidbody2D rb;
     float speed = 5.0f;
-    // public static int[] point=new int[2];
-    // private const byte PointEventCode=1;
+    public static int[] point=new int[2];
+    private const byte PointEventCode=1;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //PhotonNetwork.AddCallbackTarget(this);
+        PhotonNetwork.AddCallbackTarget(this);
     }
 
-    // void OnDestroy(){
-    //     PhotonNetwork.RemoveCallbackTarget(this);
-    // }
+    void OnDestroy(){
+        PhotonNetwork.RemoveCallbackTarget(this);
+    }
     
-    // void OnTriggerEnter2D(Collider2D other){
-    //     int playernum;
-    //     Debug.Log("Attack");
-    //     if(other.gameObject.tag=="Item"){
-    //         if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
-    //         {
-    //             Debug.Log("Player1at");
-    //             point[0]++;
-    //         }else
-    //         {
-    //             Debug.Log("Player2at");
-    //             point[1]++;
-    //         }
-    //         RaiseEventOptions raiseEventOptions=new RaiseEventOptions{
-    //             Receivers=ReceiverGroup.All
-    //         };
+    void OnTriggerEnter2D(Collider2D other){
+        if(other.gameObject.tag=="star"){
+            if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+            {
+                point[0]++;
+            }else
+            {
+                point[1]++;
+            }
+            RaiseEventOptions raiseEventOptions=new RaiseEventOptions{
+                Receivers=ReceiverGroup.All
+            };
 
-    //         PhotonNetwork.RaiseEvent(PointEventCode,point,raiseEventOptions,SendOptions.SendReliable);
-    //     }
-    // }
-    // // すべてのプレイヤーが以下の動作を行う
-    // public void OnEvent(EventData photonEvent){
-    //     if(photonEvent.Code==PointEventCode){
-    //         int[] receivepoint=(int[])photonEvent.CustomData;
-    //         point=receivepoint;
-    //         Debug.Log("AttackCount:"+attackCount);
-    //         // Debug.Log("point1:"+point[0]);
-    //         // Debug.Log("point2:"+point[1]);
-    //     }
-    // }
+            PhotonNetwork.RaiseEvent(PointEventCode,point,raiseEventOptions,SendOptions.SendReliable);
+        }
+    }
+
+    // すべてのプレイヤーが以下の動作を行う
+    public void OnEvent(EventData photonEvent){
+        if(photonEvent.Code==PointEventCode){
+            int[] receivepoint=(int[])photonEvent.CustomData;
+            point=receivepoint;
+        }
+    }
 
     // Update is called once per frame
     void Update()
