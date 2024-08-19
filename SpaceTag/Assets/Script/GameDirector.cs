@@ -10,8 +10,10 @@ public class GameDirector : MonoBehaviourPunCallbacks
 {
     public TextMeshProUGUI[] pointtext;
     public TextMeshProUGUI nametext;
-    float delta=0;
+    float delta=63.0f;
+    float count=3.0f;
     public TextMeshProUGUI timertext;
+    public TextMeshProUGUI counttext;
     public static int[] Rpoint=new int[2];
     // Start is called before the first frame update
     void Start()
@@ -30,14 +32,25 @@ public class GameDirector : MonoBehaviourPunCallbacks
     void Update()
     {
         int[] point=PlayerController.point;
-        pointtext[0].text=point[0].ToString();
-        pointtext[1].text=point[1].ToString();
+        pointtext[0].text="kuma:"+point[0].ToString();
+        pointtext[1].text="rocket:"+point[1].ToString();
 
-        this.delta+=Time.deltaTime;
-        timertext.text=this.delta.ToString("F2");
-        if(this.delta>30.0){
-            Rpoint=PlayerController.point;
-            SceneManager.LoadSceneAsync("Ending",LoadSceneMode.Single);
+        this.delta-=Time.deltaTime;
+        if(this.delta<=60.0f){
+            counttext.enabled=false;
+            timertext.text=this.delta.ToString("F2");
+            if(this.delta<0){
+                Rpoint=PlayerController.point;
+                SceneManager.LoadSceneAsync("Ending",LoadSceneMode.Single);
+            }
+        }else{
+            this.count-=Time.deltaTime;
+            if(this.count<1.0f){
+                counttext.text="START";
+            }else{
+                counttext.text=this.count.ToString("F0");
+            }
+            
         }
     }
 }

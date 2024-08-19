@@ -69,7 +69,7 @@ public class PhotonMaster : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false; // ルームに入室できないようにする
                 // statusText.text = "対戦相手が揃いました。バトルシーンに移動します。";
-                PhotonNetwork.LoadLevel("GameScene");
+                PhotonNetwork.LoadLevel("ExplainScene");
 
             }
         }

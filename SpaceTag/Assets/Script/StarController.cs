@@ -15,6 +15,9 @@ public class StarController : MonoBehaviour
         if(other.CompareTag("Player")){
             Destroy(gameObject);
         }
+        if(other.CompareTag("barrier")){
+            Destroy(gameObject);
+        }
     }
 
 

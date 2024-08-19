@@ -11,11 +11,11 @@ public class PlayerGenerator : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
         {
-            kuma = PhotonNetwork.Instantiate("kuma", new Vector3(5, 0, 0), Quaternion.identity);
+            kuma = PhotonNetwork.Instantiate("kuma", new Vector3(-2.5f, 0, 0), Quaternion.identity);
         }
         else
         {
-            rocket = PhotonNetwork.Instantiate("rocket", new Vector3(0, 0, 0), Quaternion.identity);
+            rocket = PhotonNetwork.Instantiate("rocket", new Vector3(2.5f, 0, 0), Quaternion.identity);
         }
         StartCoroutine(CheckAndSetDistanceJoint());
     }
