@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviourPunCallbacks,IOnEventCallback
             {
                 movement += Vector2.left;
             }
-
             rb.velocity = movement.normalized * speed;
 
         }
